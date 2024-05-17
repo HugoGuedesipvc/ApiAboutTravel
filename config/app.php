@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
+use Webpatser\Countries\CountriesServiceProvider;
 
 return [
 
@@ -42,7 +43,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool)env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -168,6 +169,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        CountriesServiceProvider::class
     ])->toArray(),
 
     /*
@@ -182,6 +184,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'Countries' => Webpatser\Countries\CountriesFacade::class,
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
