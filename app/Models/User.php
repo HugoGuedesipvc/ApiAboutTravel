@@ -4,13 +4,16 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, softDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +24,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'username',
+        'phone_number',
+        'profile_picture',
+        'description',
     ];
 
     /**
@@ -42,4 +49,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function trips(): hasMany
+    {
+        return $this->hasMany(Trip::class);
+    }
+    public function users_trips(): BelongsToMany
+    {
+        return $this->belongsToMany(Trip::class);
+    }
+
+    public function rating_Trips(): BelongsToMany
+    {
+        return $this->belongsToMany(Trip::class)->withPivot(["rating"]);
+    }
+
+    public function rating_locals(): BelongsToMany
+    {
+        return $this->belongsToMany(Local::class)->withPivot(["rating"]);
+    }
 }
