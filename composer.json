@@ -14,6 +14,7 @@
         "laravel/tinker": "^2.8",
         "opcodesio/log-viewer": "^3.9",
         "riftweb/storage": "^1.1",
+        "tymon/jwt-auth": "^2.1",
         "webpatser/laravel-countries": "^1.5"
     },
     "require-dev": {
