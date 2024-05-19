@@ -21,6 +21,16 @@ class TripRepository
         }
     }
 
+    public function getTripAmount($number) : Collection
+    {
+        try {
+            return Trip::paginate($number);
+        } catch (Throwable $e) {
+            report($e);
+            return collect();
+        }
+    }
+
     public function find($id): ?Trip
     {
         try {
@@ -109,6 +119,16 @@ class TripRepository
         } catch (Throwable $e) {
             report($e);
             return false;
+        }
+    }
+
+    public function getTripShared() : Collection
+    {
+        try {
+            return Trip::where('shared', 1)->get();
+        } catch (Throwable $e) {
+            report($e);
+            return collect();
         }
     }
 }

@@ -24,6 +24,12 @@ class TripService
             ->all();
     }
 
+    public function getTripAmount(int $number): Collection
+    {
+        return $this->tripRepository
+            ->all($number);
+    }
+
     public function find($id): ?Trip
     {
         return $this->tripRepository
@@ -94,5 +100,11 @@ class TripService
             ->delete(
                 $trip
             );
+    }
+
+    public function getTripShared(): Collection
+    {
+        return $this->tripRepository
+            ->getTripShared();
     }
 }
