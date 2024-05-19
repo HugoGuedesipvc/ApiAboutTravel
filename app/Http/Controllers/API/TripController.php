@@ -2,94 +2,101 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Services\TripService;
-use App\Http\Controllers\Controller;
 use App\Models\Trip;
+use App\Services\CountryService;
+use App\Services\TripService;
 use Illuminate\Http\Request;
+use Riftweb\Storage\Classes\RiftStorage;
 
-class TripController extends Controller
+class TripController extends ApiBaseController
 {
-    protected  TripService $tripService;
-    public function __construct(TripService $tripService)
+    public function __construct(
+        protected TripService    $tripService,
+        protected CountryService $countryService
+    )
     {
-        $this->tripService = $tripService;
-    }
-    public function index()
-    {
-        return $this->tripService->all();
+        parent::__construct();
     }
 
-    public function getTripRecyclerView(Request $request)
+    public function index(Request $request)
     {
-        $perScroll = $request->get('per_scroll', 20);
-        return $this->tripService->getTripAmount($perScroll);
+        $trips = $this->user
+            ->trips()
+            ->paginate(
+                $request->get('amount', 20),
+                page: $request->get('page', 1)
+            );
+
+        return response()->json($trips);
+    }
+
+    public function show(Trip $trip)
+    {
+        if (!$this->checkOwnership($trip)) {
+            return $this->unauthorizedResponse();
+        }
+
+        return $this->showResponse($trip);
+    }
+
+    public function update(Request $request, Trip $trip)
+    {
+        if (!$this->checkOwnership($trip)) {
+            return $this->unauthorizedResponse();
+        }
+
+        $country = $this->countryService
+            ->findByIso2($request->country_iso2);
+
+        $status = $this->tripService
+            ->update(
+                $trip,
+                $request->label,
+                $country,
+                $request->location,
+                $request->date('date'),
+                $request->description,
+                optional(RiftStorage::store($request->file('image'), 'trips'))->path,
+                $request->float('latitude'),
+                $request->float('longitude'),
+                $request->boolean('shared')
+            );
+
+        $trip->refresh();
+
+        return $this->updateResponse($status, $trip);
     }
 
     public function store(Request $request)
     {
-        $this->tripService->store(
-            auth()->user(),
-            $request->name,
-            $request->country,
-            $request->location,
-            $request->date,
-            $request->description,
-            $request->image,
-            $request->latitude,
-            $request->longitude,
-            $request->shared
-        );
+        $country = $this->countryService
+            ->findByIso2($request->country_iso2);
+
+        $trip = $this->tripService
+            ->store(
+                $this->user,
+                $request->label,
+                $country,
+                $request->location,
+                $request->date('date'),
+                $request->description,
+                optional(RiftStorage::store($request->file('image'), 'trips'))->path,
+                $request->float('latitude'),
+                $request->float('longitude'),
+                $request->boolean('shared')
+            );
+
+        return $this->createResponse($trip);
     }
 
-    public function show($id)
+    public function destroy(Trip $trip)
     {
-        return $this->tripService->find($id);
-    }
-
-    public function update(Request $request, $id)
-    {
-        $this->tripService->update(
-            $this->tripService->find($id),
-            auth()->user(),
-            $request->name,
-            $request->country,
-            $request->location,
-            $request->date,
-            $request->description,
-            $request->image,
-            $request->latitude,
-            $request->longitude,
-            $request->shared
-        );
-
-        //File code
-        /*
-        if($request->hasFile("imagens"))
-        {
-            $imagens = [];
-
-            foreach($request->file("imagens") as $imagem)
-            {
-                $imagens[] = RiftStorage::store($imagem,"receitas");
-            }
-
-            $this->imagemService->massStore($receita,$imagens);
+        if (!$this->checkOwnership($trip)) {
+            return $this->unauthorizedResponse();
         }
 
-        if($request->has("imagens_delete"))
-        {
-            $this->imagemService->deleteByIds($request->imagens_delete);
-        }
-        */
-    }
+        $status = $this->tripService->delete($trip);
 
-    public function destroy($id)
-    {
-        $this->tripService->delete($id);
-    }
-
-    public function getTripShared()
-    {
-        return $this->tripService->getTripShared();
+        return $this->deleteResponse($status);
     }
 }

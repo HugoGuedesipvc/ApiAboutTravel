@@ -6,14 +6,14 @@ namespace App\Services;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Collection;
-use Throwable;
 
 class UserService
 {
     public function __construct(
         protected UserRepository $userRepository
     )
-    {}
+    {
+    }
 
     public function all(): Collection
     {
@@ -26,32 +26,33 @@ class UserService
     }
 
     public function store(
-        string $name,
-        string $email,
-        string $username,
-        string $password,
-        ?string $phone_number,
-        ?string $profile_picture,
+        string  $name,
+        string  $email,
+        string  $username,
+        string  $password,
+        ?string $phoneNumber,
+        ?string $profilePicture,
         ?string $description,
     ): ?User
     {
-        return $this->userRepository->store(
-            $name,
-            $email,
-            $username,
-            $password,
-            $phone_number,
-            $profile_picture,
-            $description,
-        );
+        return $this->userRepository
+            ->store(
+                $name,
+                $email,
+                $username,
+                $password,
+                $phoneNumber,
+                $profilePicture,
+                $description,
+            );
     }
 
     public function update(
-        User $user,
-        string $name,
-        string $email,
-        string $username,
-        string $password,
+        User    $user,
+        string  $name,
+        string  $email,
+        string  $username,
+        string  $password,
         ?string $phone_number,
         ?string $profile_picture,
         ?string $description,

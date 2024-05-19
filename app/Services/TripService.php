@@ -3,12 +3,12 @@
 namespace App\Services;
 
 
+use App\Models\Country;
 use App\Models\Trip;
 use App\Models\User;
 use App\Repositories\TripRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use Throwable;
 
 class TripService
 {
@@ -24,12 +24,6 @@ class TripService
             ->all();
     }
 
-    public function getTripAmount(int $number): Collection
-    {
-        return $this->tripRepository
-            ->all($number);
-    }
-
     public function find($id): ?Trip
     {
         return $this->tripRepository
@@ -37,22 +31,22 @@ class TripService
     }
 
     public function store(
-        User $user,
-        string $name,
-        ?string $country,
-        ?string $location,
-        Carbon $date,
-        ?string $description,
-        ?string $image,
-        ?float $latitude,
-        ?float $longitude,
-        bool $shared
+        User     $user,
+        string   $label,
+        ?Country $country,
+        ?string  $location,
+        Carbon   $date,
+        ?string  $description,
+        ?string  $image,
+        ?float   $latitude,
+        ?float   $longitude,
+        bool     $shared = false
     ): ?Trip
     {
         return $this->tripRepository
             ->store(
                 $user,
-                $name,
+                $label,
                 $country,
                 $location,
                 $date,
@@ -65,23 +59,21 @@ class TripService
     }
 
     public function update(
-        Trip $trip,
-        User $user,
-        string $name,
-        ?string $country,
-        ?string $location,
-        Carbon $date,
-        ?string $description,
-        ?string $image,
-        ?float $latitude,
-        ?float $longitude,
-        bool $shared
+        Trip     $trip,
+        string   $name,
+        ?Country $country,
+        ?string  $location,
+        Carbon   $date,
+        ?string  $description,
+        ?string  $image,
+        ?float   $latitude,
+        ?float   $longitude,
+        ?bool    $shared = null
     ): bool
     {
         return $this->tripRepository
             ->update(
                 $trip,
-                $user,
                 $name,
                 $country,
                 $location,

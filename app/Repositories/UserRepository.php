@@ -30,12 +30,12 @@ class UserRepository
     }
 
     public function store(
-        string $name,
-        string $email,
-        string $username,
-        string $password,
-        ?string $phone_number,
-        ?string $profile_picture,
+        string  $name,
+        string  $email,
+        string  $username,
+        string  $password,
+        ?string $phoneNumber,
+        ?string $profilePicture,
         ?string $description,
     ): ?User
     {
@@ -45,8 +45,8 @@ class UserRepository
                 'email' => $email,
                 'username' => $username,
                 'password' => $password,
-                'phone_number' => $phone_number,
-                'profile_picture' => $profile_picture,
+                'phone_number' => $phoneNumber,
+                'profile_picture' => $profilePicture,
                 'description' => $description,
             ];
 
@@ -58,11 +58,11 @@ class UserRepository
     }
 
     public function update(
-        User $user,
-        string $name,
-        string $email,
-        string $username,
-        string $password,
+        User    $user,
+        string  $name,
+        string  $email,
+        string  $username,
+        string  $password,
         ?string $phone_number,
         ?string $profile_picture,
         ?string $description

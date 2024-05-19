@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Seeders\Dev\DevUserSeeder;
 use Database\Seeders\Template\CountriesSeeder;
 use Illuminate\Database\Seeder;
 
@@ -42,6 +43,9 @@ class DatabaseSeeder extends Seeder
 
     public function development(): void
     {
+        $this->call([
+            DevUserSeeder::class
+        ]);
     }
 
     public function prod(): void

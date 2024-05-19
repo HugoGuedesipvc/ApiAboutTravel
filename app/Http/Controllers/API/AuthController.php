@@ -14,7 +14,12 @@ class AuthController extends Controller
 
     public function login(AuthenticateRequest $request)
     {
-        $credentials = ['email' => $request->email, 'password' => $request->password];
+        $credentials = ['password' => $request->password];
+        if ($request->has('email')) {
+            $credentials['email'] = $request->email;
+        } elseif ($request->has('username')) {
+            $credentials['username'] = $request->username;
+        }
 
         if (!$token = auth('api')->attempt($credentials)) {
             return response()->json(

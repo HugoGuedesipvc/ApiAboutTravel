@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 
+use App\Models\Country;
 use App\Models\Trip;
 use App\Models\User;
 use Carbon\Carbon;
@@ -21,10 +22,20 @@ class TripRepository
         }
     }
 
-    public function getTripAmount($number) : Collection
+    public function getTripAmount($number): Collection
     {
         try {
             return Trip::paginate($number);
+        } catch (Throwable $e) {
+            report($e);
+            return collect();
+        }
+    }
+
+    public function paginate($page, $amount = 20): Collection
+    {
+        try {
+            return Trip::paginate();
         } catch (Throwable $e) {
             report($e);
             return collect();
@@ -42,25 +53,25 @@ class TripRepository
     }
 
     public function store(
-        User $user,
-        string $name,
-        ?string $country,
-        ?string $location,
-        Carbon $date,
-        ?string $description,
-        ?string $image,
-        ?float $latitude,
-        ?float $longitude,
-        bool $shared
+        User     $user,
+        string   $label,
+        ?Country $country,
+        ?string  $location,
+        Carbon   $date,
+        ?string  $description,
+        ?string  $image,
+        ?float   $latitude,
+        ?float   $longitude,
+        bool     $shared = false
     ): ?Trip
     {
         try {
             $data = [
                 "user_id" => $user->id,
-                "name" => $name,
-                "country" => $country,
+                "label" => $label,
+                "country_id" => optional($country)->id,
                 "location" => $location,
-                "date" => $date,
+                "date" => $date->format('Y-m-d'),
                 "description" => $description,
                 "image" => $image,
                 "latitude" => $latitude,
@@ -77,31 +88,29 @@ class TripRepository
     }
 
     public function update(
-         Trip $trip,
-         User $user,
-         string $name,
-         ?string $country,
-         ?string $location,
-         Carbon $date,
-         ?string $description,
-         ?string $image,
-         ?float $latitude,
-         ?float $longitude,
-         bool $shared
+        Trip     $trip,
+        string   $label,
+        ?Country $country,
+        ?string  $location,
+        Carbon   $date,
+        ?string  $description,
+        ?string  $image,
+        ?float   $latitude,
+        ?float   $longitude,
+        ?bool    $shared = null
     ): bool
     {
         try {
             $data = [
-                "user_id" => $user->id,
-                "name" => $name,
-                "country" => $country,
-                "location" => $location,
-                "date" => $date,
-                "description" => $description,
-                "image" => $image,
-                "latitude" => $latitude,
-                "longitude" => $longitude,
-                "shared" => $shared,
+                "label" => $label,
+                "country_id" => optional($country)->id ?? $trip->country_id,
+                "location" => $location ?? $trip->location,
+                "date" => optional($date)->format('Y-m-d') ?? $trip->date,
+                "description" => $description ?? $trip->description,
+                "image" => $image ?? $trip->image,
+                "latitude" => $latitude ?? $trip->latitude,
+                "longitude" => $longitude ?? $trip->longitude,
+                "shared" => $shared ?? $trip->shared,
             ];
 
             return $trip->update($data);
@@ -122,10 +131,10 @@ class TripRepository
         }
     }
 
-    public function getTripShared() : Collection
+    public function getTripShared(): Collection
     {
         try {
-            return Trip::where('shared', 1)->get();
+            return Trip::isShared()->get();
         } catch (Throwable $e) {
             report($e);
             return collect();

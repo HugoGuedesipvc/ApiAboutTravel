@@ -25,7 +25,8 @@ class AuthenticateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email', 'exists:users,email'],
+            'email' => ['required_if:username,', 'email', 'exists:users,email'],
+            'username' => ['required_if:email,', 'string', 'exists:users,username'],
             'password' => ['required', 'string', 'min:6'],
         ];
     }
