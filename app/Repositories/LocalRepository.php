@@ -35,7 +35,7 @@ class LocalRepository
     public function store(
         Trip $trip,
         LocalType $localType,
-        string $name,
+        string $label,
         ?float $latitude,
         ?float $longitude,
         string $description,
@@ -46,11 +46,11 @@ class LocalRepository
             $data = [
                 "trip_id" => $trip->id,
                 "local_type_id" => $localType->id,
-                "name" => $name,
+                "label" => $label,
                 "latitude" => $latitude,
                 "longitude" => $longitude,
                 "description" => $description,
-                "date" => $date
+                "date" => $date->format('Y-m-d')
             ];
 
             return Local::create($data);
@@ -63,9 +63,8 @@ class LocalRepository
 
     public function update(
         Local $local,
-        Trip $trip,
         LocalType $localType,
-        String $name,
+        String $label,
         ?String $latitude,
         ?String $longitude,
         ?String $description,
@@ -74,13 +73,12 @@ class LocalRepository
     {
         try {
             $data = [
-                "trip_id" => $trip->id,
                 "local_type_id" => $localType->id,
-                "name" => $name,
-                "latitude" => $latitude,
-                "longitude" => $longitude,
-                "description" => $description,
-                "date" => $date
+                "label" => $label,
+                "latitude" => $latitude ?? $local->latitude,
+                "longitude" => $longitude ?? $local->longitude,
+                "description" => $description ?? $local->description,
+                "date" => optional($date)->format('Y-m-d') ?? $local->date
             ];
 
             return $local->update($data);

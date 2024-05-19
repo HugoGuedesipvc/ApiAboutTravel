@@ -56,17 +56,17 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Trip::class);
     }
-    public function users_trips(): BelongsToMany
+    public function usersTrips(): BelongsToMany
     {
         return $this->belongsToMany(Trip::class);
     }
 
-    public function rating_Trips(): BelongsToMany
+    public function ratingTrips(): BelongsToMany
     {
         return $this->belongsToMany(Trip::class)->withPivot(["rating"]);
     }
 
-    public function rating_locals(): BelongsToMany
+    public function ratingLocals(): BelongsToMany
     {
         return $this->belongsToMany(Local::class)->withPivot(["rating"]);
     }

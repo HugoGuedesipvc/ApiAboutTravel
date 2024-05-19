@@ -3,10 +3,19 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\LocalRepository;
+use App\Services\LocalService;
 use Illuminate\Http\Request;
 
-class LocalController extends Controller
+class LocalController extends ApiBaseController
 {
+    public function __construct(
+        protected LocalService $localService,
+        protected LocalRepository $localRepository,
+    )
+    {
+        parent::__construct();
+    }
     public function index()
     {
 

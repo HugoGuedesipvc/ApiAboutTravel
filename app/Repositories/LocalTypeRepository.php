@@ -30,13 +30,13 @@ class LocalTypeRepository
     }
 
     public function store(
-        string $name,
-        string $description
+        string $label,
+        ?string $description
     ): ?LocalType
     {
         try {
             $data = [
-                "name" => $name,
+                "label" => $label,
                 "description" => $description
             ];
 
@@ -49,14 +49,14 @@ class LocalTypeRepository
 
     public function update(
         LocalType $localType,
-        string $name,
-        string $description
+        string $label,
+        ?string $description
     ): bool
     {
         try {
             $data = [
-                "name" => $name,
-                "description" => $description
+                "label" => $label,
+                "description" => $description ?? $localType->description
             ];
 
             return $localType->update($data);

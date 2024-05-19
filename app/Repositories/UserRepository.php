@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 use App\Models\User;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Hash;
 use Throwable;
 
 class UserRepository
@@ -62,9 +63,9 @@ class UserRepository
         string  $name,
         string  $email,
         string  $username,
-        string  $password,
-        ?string $phone_number,
-        ?string $profile_picture,
+        ?string $password,
+        ?string $phoneNumber,
+        ?string $profilePicture,
         ?string $description
     ): bool
     {
@@ -73,11 +74,14 @@ class UserRepository
                 'name' => $name,
                 'email' => $email,
                 'username' => $username,
-                'password' => $password,
-                'phone_number' => $phone_number,
-                'profile_picture' => $profile_picture,
-                'description' => $description,
+                'phone_number' => $phoneNumber ?? $user->phone_number,
+                'profile_picture' => $profilePicture ?? $user->profile_picture,
+                'description' => $description ?? $user->description,
             ];
+
+            if ($password) {
+                $data['password'] = Hash::make($password);
+            }
 
             return $user->update($data);
         } catch (Throwable $e) {

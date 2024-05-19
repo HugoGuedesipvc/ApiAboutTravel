@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Services;
 
 
 use App\Models\LocalType;
@@ -28,22 +28,28 @@ class LocalTypeService
             ->find($id);
     }
 
-    public function store(): ?LocalType
+    public function store(
+        string $label,
+        ?string $description,
+    ): ?LocalType
     {
         return $this->localTypeRepository
-            ->store();
+            ->store(
+                $label,
+                $description
+            );
     }
 
     public function update(
         LocalType $localType,
-        string $name,
+        string $label,
         string $description
     ): bool
     {
         return $this->localTypeRepository
             ->update(
                 $localType,
-                $name,
+                $label,
                 $description
             );
     }

@@ -34,7 +34,7 @@ class LocalService
     public function store(
         Trip $trip,
         LocalType $localType,
-        string $name,
+        string $label,
         ?float $latitude,
         ?float $longitude,
         string $description,
@@ -45,7 +45,7 @@ class LocalService
             ->store(
                  $trip,
                  $localType,
-                 $name,
+                 $label,
                  $latitude,
                  $longitude,
                  $description,
@@ -55,9 +55,8 @@ class LocalService
 
     public function update(
         Local $local,
-        Trip $trip,
         LocalType $localType,
-        string $name,
+        string $label,
         ?float $latitude,
         ?float $longitude,
         string $description,
@@ -67,9 +66,8 @@ class LocalService
         return $this->localRepository
             ->update(
                 $local,
-                $trip,
                 $localType,
-                $name,
+                $label,
                 $latitude,
                 $longitude,
                 $description,

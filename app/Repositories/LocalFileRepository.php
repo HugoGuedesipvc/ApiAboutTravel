@@ -4,26 +4,26 @@ namespace App\Repositories;
 
 
 use App\Models\Local;
-use App\Models\Media;
+use App\Models\LocalFile;
 use Illuminate\Support\Collection;
 use Throwable;
 
-class MediaRepository
+class LocalFileRepository
 {
     public function all(): Collection
     {
         try {
-            return Media::all();
+            return LocalFile::all();
         } catch (Throwable $e) {
             report($e);
             return collect();
         }
     }
 
-    public function find($id): ?Media
+    public function find($id): ?LocalFile
     {
         try {
-            return Media::findOrFail($id);
+            return LocalFile::findOrFail($id);
         } catch (Throwable $e) {
             report($e);
             return null;
@@ -32,18 +32,18 @@ class MediaRepository
 
     public function store(
         Local $local,
-        string $name,
+        string $label,
         string $path,
-    ): ?Media
+    ): ?LocalFile
     {
         try {
             $data = [
                 "local_id" => $local->id,
-                "name" => $name,
+                "name" => $label,
                 "path" => $path,
             ];
 
-            return Media::create($data);
+            return LocalFile::create($data);
         } catch (Throwable $e) {
             report($e);
             return null;
@@ -51,27 +51,25 @@ class MediaRepository
     }
 
     public function update(
-        Media $media,
-        Local $local,
-        string $name,
-        string $path
+        LocalFile $file,
+        string    $label,
+        string    $path
     ): bool
     {
         try {
             $data = [
-                "local_id" => $local->id,
-                "name" => $name,
+                "label" => $label,
                 "path" => $path,
             ];
 
-            return $media->update($data);
+            return $file->update($data);
         } catch (Throwable $e) {
             report($e);
             return false;
         }
     }
 
-    public function delete(Media $media): bool
+    public function delete(LocalFile $media): bool
     {
         try {
             return $media->delete();

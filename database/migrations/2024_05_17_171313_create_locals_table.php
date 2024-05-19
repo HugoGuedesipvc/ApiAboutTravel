@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(Trip::class);
             $table->foreignIdFor(LocalType::class);
-            $table->string('name');
+            $table->string('label');
             $table->decimal('latitude')->nullable();
             $table->decimal('longitude')->nullable();
             $table->longText('description')->nullable();

@@ -11,7 +11,7 @@ class LocalType extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'name',
+        'label',
         'description',
     ];
     public function locals(): hasMany

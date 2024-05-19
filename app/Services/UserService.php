@@ -53,7 +53,7 @@ class UserService
         string  $email,
         string  $username,
         string  $password,
-        ?string $phone_number,
+        ?string $phoneNumber,
         ?string $profile_picture,
         ?string $description,
     ): bool
@@ -65,7 +65,7 @@ class UserService
                 $email,
                 $username,
                 $password,
-                $phone_number,
+                $phoneNumber,
                 $profile_picture,
                 $description,
             );

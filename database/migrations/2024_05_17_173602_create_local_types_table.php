@@ -9,7 +9,7 @@ return new class extends Migration {
     {
         Schema::create('local_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('label');
             $table->longText('description')->nullable();
             $table->softDeletes();
             $table->timestamps();

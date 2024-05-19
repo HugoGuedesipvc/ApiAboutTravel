@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('medias', function (Blueprint $table) {
+        Schema::create('local_files', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Local::class);
-            $table->string('name');
-            $table->string('path');
+            $table->string('label');
+            $table->longText('path');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -20,6 +20,6 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('medias');
+        Schema::dropIfExists('local_files');
     }
 };

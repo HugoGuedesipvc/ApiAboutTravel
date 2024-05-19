@@ -14,7 +14,7 @@ class Local extends Model
     protected $fillable = [
         'trip_id',
         'local_type_id',
-        'name',
+        'label',
         'latitude',
         'longitude',
         'description',
@@ -22,7 +22,11 @@ class Local extends Model
     ];
 
     protected $casts = [
-        'date' => 'date',
+        'trip_id' => 'integer',
+        'local_type_id' => 'integer',
+        'date' => 'datetime',
+        'latitude' => 'float',
+        'longitude' => 'float',
     ];
 
     public function trip(): belongsTo
@@ -35,8 +39,8 @@ class Local extends Model
         return $this->belongsTo(LocalType::class);
     }
 
-    public function medias(): hasMany
+    public function localFiles(): hasMany
     {
-        return $this->hasMany(Media::class);
+        return $this->hasMany(LocalFile::class);
     }
 }
