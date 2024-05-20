@@ -28,7 +28,9 @@ class LocalController extends ApiBaseController
             return $this->unauthorizedResponse();
         }
 
-        $locals = $trip->locals()->get();
+        $locals = $trip->locals()
+            ->paginate($request->get('amount', 20),
+                page: $request->get('page', 1));
 
         return response()->json($locals);
     }

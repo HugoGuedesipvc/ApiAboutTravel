@@ -260,11 +260,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/locals",
+							"raw": "{{URL}}/trips/1/locals",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
+								"trips",
+								"1",
 								"locals"
 							]
 						}
@@ -277,14 +279,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/locals/1/3",
+							"raw": "{{URL}}/trips/1/locals/1",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
-								"locals",
+								"trips",
 								"1",
-								"3"
+								"locals",
+								"1"
 							]
 						}
 					},
@@ -310,7 +313,7 @@
 								},
 								{
 									"key": "label",
-									"value": "test",
+									"value": "test3",
 									"type": "text"
 								},
 								{
@@ -335,40 +338,26 @@
 				{
 					"name": "Patch",
 					"request": {
+						"auth": {
+							"type": "bearer"
+						},
 						"method": "PATCH",
 						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "trip_id",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "local_type_id",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "label",
-									"value": "test2",
-									"type": "text"
-								},
-								{
-									"key": "date",
-									"value": "2024-05-18",
-									"type": "text"
-								}
-							]
-						},
 						"url": {
-							"raw": "{{URL}}/locals",
+							"raw": "{{URL}}/locals/1/?label=test2efsefse",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
-								"locals"
+								"locals",
+								"1",
+								""
+							],
+							"query": [
+								{
+									"key": "label",
+									"value": "test2efsefse"
+								}
 							]
 						}
 					},
