@@ -3,7 +3,13 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Seeders\Dev\DevLocalSeeder;
+use Database\Seeders\Dev\DevLocalTypeSeeder;
+use Database\Seeders\Dev\DevTripSeeder;
+use Database\Seeders\Dev\DevUserLocalRatingSeeder;
 use Database\Seeders\Dev\DevUserSeeder;
+use Database\Seeders\Dev\DevUserSharedTripSeeder;
+use Database\Seeders\Dev\DevUserTripRatingSeeder;
 use Database\Seeders\Template\CountriesSeeder;
 use Illuminate\Database\Seeder;
 
@@ -44,7 +50,13 @@ class DatabaseSeeder extends Seeder
     public function development(): void
     {
         $this->call([
-            DevUserSeeder::class
+            DevUserSeeder::class,
+            DevLocalTypeSeeder::class,
+            DevTripSeeder::class,
+            DevLocalSeeder::class,
+            DevUserSharedTripSeeder::class,
+            DevUserTripRatingSeeder::class,
+            DevUserLocalRatingSeeder::class
         ]);
     }
 
