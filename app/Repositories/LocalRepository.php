@@ -38,7 +38,7 @@ class LocalRepository
         string $label,
         ?float $latitude,
         ?float $longitude,
-        string $description,
+        ?string $description,
         Carbon $date
     ): ?Local
     {

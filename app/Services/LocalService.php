@@ -37,7 +37,7 @@ class LocalService
         string $label,
         ?float $latitude,
         ?float $longitude,
-        string $description,
+        ?string $description,
         Carbon $date
     ): ?Local
     {
@@ -59,7 +59,7 @@ class LocalService
         string $label,
         ?float $latitude,
         ?float $longitude,
-        string $description,
+        ?string $description,
         Carbon $date
     ): bool
     {

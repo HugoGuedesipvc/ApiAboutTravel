@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "e7ec687a-50f2-4f90-a94a-dfa9817d754c",
+		"_postman_id": "a83b4d28-f56f-4537-90c7-7ae098064008",
 		"name": "About Travel",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "26808693"
+		"_exporter_id": "35017054"
 	},
 	"item": [
 		{
@@ -131,7 +131,10 @@
 					"name": "Show",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},
@@ -247,6 +250,131 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Local",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/locals",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"locals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/locals/1/3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"locals",
+								"1",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "trip_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "local_type_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "label",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "2024-05-19",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/locals",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"locals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "trip_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "local_type_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "label",
+									"value": "test2",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "2024-05-18",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/locals",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"locals"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
@@ -288,7 +416,7 @@
 		},
 		{
 			"key": "URL",
-			"value": "https://hugoapi.stacks.run/api",
+			"value": "https://apicommov.stacks.run/api",
 			"type": "string"
 		},
 		{

@@ -9,8 +9,8 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class ApiBaseController extends Controller
 {
-    protected int $userId;
-    protected User $user;
+    protected ?int $userId;
+    protected ?User $user;
 
     public function __construct()
     {

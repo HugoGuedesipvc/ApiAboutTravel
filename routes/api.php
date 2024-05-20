@@ -26,6 +26,6 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("trips", TripController::class);
-    Route::apiResource("locals", LocalController::class);
+    Route::apiResource("trips.locals", LocalController::class);
     Route::apiResource("user", UserController::class);
 });
