@@ -36,6 +36,8 @@ class TripController extends ApiBaseController
             return $this->unauthorizedResponse();
         }
 
+        $trip->loadMissing(['ratings']);
+
         return $this->showResponse($trip);
     }
 

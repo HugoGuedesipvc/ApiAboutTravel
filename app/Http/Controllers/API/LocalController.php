@@ -41,6 +41,8 @@ class LocalController extends ApiBaseController
             return $this->unauthorizedResponse();
         }
 
+        $local->loadMissing(['ratings']);
+
         return $this->showResponse($local);
     }
 

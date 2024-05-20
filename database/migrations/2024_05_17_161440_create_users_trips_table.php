@@ -9,17 +9,15 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('users_trips', function (Blueprint $table) {
+        Schema::create('user_trip_shared', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(Trip::class);
-            $table->softDeletes();
-            $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('users_trips');
+        Schema::dropIfExists('user_trip_shared');
     }
 };

@@ -6,10 +6,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 
@@ -56,19 +56,20 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Trip::class);
     }
-    public function usersTrips(): BelongsToMany
+
+    public function userSharedTrips(): BelongsToMany
     {
-        return $this->belongsToMany(Trip::class);
+        return $this->belongsToMany(Trip::class, 'user_trip_shared');
     }
 
-    public function ratingTrips(): BelongsToMany
+    public function tripRatings(): BelongsToMany
     {
-        return $this->belongsToMany(Trip::class)->withPivot(["rating"]);
+        return $this->belongsToMany(Trip::class, 'user_trip_ratings')->withPivot(["rating"]);
     }
 
-    public function ratingLocals(): BelongsToMany
+    public function localRatings(): BelongsToMany
     {
-        return $this->belongsToMany(Local::class)->withPivot(["rating"]);
+        return $this->belongsToMany(Local::class, 'user_local_ratings')->withPivot(["rating"]);
     }
 
     /**
