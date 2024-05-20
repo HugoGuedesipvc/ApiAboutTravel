@@ -31,7 +31,7 @@ class LocalFileRepository
     }
 
     public function store(
-        Local $local,
+        Local  $local,
         string $label,
         string $path,
     ): ?LocalFile
@@ -39,7 +39,7 @@ class LocalFileRepository
         try {
             $data = [
                 "local_id" => $local->id,
-                "name" => $label,
+                "label" => $label,
                 "path" => $path,
             ];
 

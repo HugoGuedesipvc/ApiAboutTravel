@@ -18,4 +18,13 @@ class LocalFile extends Model
     protected $casts = [
         'local_id' => 'integer',
     ];
+    
+    protected $appends = [
+        'url'
+    ];
+
+    public function getUrlAttribute(): string
+    {
+        return asset($this->path);
+    }
 }

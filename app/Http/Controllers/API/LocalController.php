@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Local;
-use App\Models\LocalType;
 use App\Models\Trip;
 use App\Services\LocalFileService;
 use App\Services\LocalService;
@@ -29,6 +28,7 @@ class LocalController extends ApiBaseController
         }
 
         $locals = $trip->locals()
+            ->with(['localFiles', 'localType'])
             ->paginate($request->get('amount', 20),
                 page: $request->get('page', 1));
 
@@ -64,12 +64,11 @@ class LocalController extends ApiBaseController
         if ($request->has('files')) {
             foreach ($request->file('files') as $file) {
                 $filePath = RiftStorage::store($file, 'locals');
-                $this->localFileService->store($local->id, $filePath, null);
+                $this->localFileService->store($local, $filePath->fileName, $filePath->path);
             }
         }
 
         $local->refresh();
-
         return $this->updateResponse($status, $local);
     }
 
@@ -79,7 +78,7 @@ class LocalController extends ApiBaseController
             return $this->unauthorizedResponse();
         }
 
-        $localType = LocalType::find($request->local_type_id);
+        $localType = $this->localTypeService->find($request->local_type_id);
 
         $local = $this->localService
             ->store(
@@ -91,13 +90,15 @@ class LocalController extends ApiBaseController
                 $request->description,
                 $request->date('date')
             );
-
+        
         if ($request->has('files')) {
             foreach ($request->file('files') as $file) {
                 $filePath = RiftStorage::store($file, 'locals');
-                $this->localFileService->store($local->id, $filePath, null);
+                $this->localFileService->store($local, $filePath->fileName, $filePath->path);
             }
         }
+
+        $local->loadMissing(['localFiles', 'localType']);
 
         return $this->createResponse($local);
 
