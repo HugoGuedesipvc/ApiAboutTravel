@@ -52,10 +52,16 @@ class LocalController extends ApiBaseController
             return $this->unauthorizedResponse();
         }
 
+        if ($request->has('local_type-id')) {
+            $localType = $this->localTypeService->find($request->local_type_id);
+        } else {
+            $localType = $local->localType;
+        }
+
         $status = $this->localService
             ->update(
                 $local,
-                $request->local_type_id,
+                $localType,
                 $request->label,
                 $request->float('latitude'),
                 $request->float('longitude'),
@@ -69,6 +75,8 @@ class LocalController extends ApiBaseController
                 $this->localFileService->store($local, $filePath->fileName, $filePath->path);
             }
         }
+
+        $local->loadMissing(['localFiles', 'localType']);
 
         $local->refresh();
         return $this->updateResponse($status, $local);
@@ -92,7 +100,7 @@ class LocalController extends ApiBaseController
                 $request->description,
                 $request->date('date')
             );
-        
+        //dd($request->file('files'));
         if ($request->has('files')) {
             foreach ($request->file('files') as $file) {
                 $filePath = RiftStorage::store($file, 'locals');

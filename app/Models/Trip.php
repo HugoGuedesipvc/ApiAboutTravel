@@ -40,6 +40,11 @@ class Trip extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function country(): belongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
+
     public function userSharedTrips(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_trip_shared');

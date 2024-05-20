@@ -7,7 +7,6 @@ use App\Models\Local;
 use App\Models\LocalFile;
 use App\Repositories\LocalFileRepository;
 use Illuminate\Support\Collection;
-use Throwable;
 
 class LocalFileService
 {
@@ -30,11 +29,12 @@ class LocalFileService
     }
 
     public function store(
-        Local $local,
+        Local  $local,
         string $label,
         string $path
     ): ?LocalFile
     {
+
         return $this->localFileRepository
             ->store(
                 $local,

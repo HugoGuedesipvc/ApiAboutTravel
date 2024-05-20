@@ -60,10 +60,10 @@ class TripService
 
     public function update(
         Trip     $trip,
-        string   $name,
+        ?string  $label,
         ?Country $country,
         ?string  $location,
-        Carbon   $date,
+        ?Carbon  $date,
         ?string  $description,
         ?string  $image,
         ?float   $latitude,
@@ -74,7 +74,7 @@ class TripService
         return $this->tripRepository
             ->update(
                 $trip,
-                $name,
+                $label,
                 $country,
                 $location,
                 $date,

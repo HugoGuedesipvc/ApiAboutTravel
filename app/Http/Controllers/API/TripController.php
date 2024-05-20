@@ -8,6 +8,10 @@ use App\Services\TripService;
 use Illuminate\Http\Request;
 use Riftweb\Storage\Classes\RiftStorage;
 
+//todo: user get all trips shared with him and his own and return with ratings
+//
+
+
 class TripController extends ApiBaseController
 {
     public function __construct(
@@ -36,7 +40,7 @@ class TripController extends ApiBaseController
             return $this->unauthorizedResponse();
         }
 
-        $trip->loadMissing(['ratings']);
+        // $trip->loadMissing(['ratings']);
 
         return $this->showResponse($trip);
     }
@@ -47,14 +51,11 @@ class TripController extends ApiBaseController
             return $this->unauthorizedResponse();
         }
 
-        $country = $this->countryService
-            ->findByIso2($request->country_iso2);
-
         $status = $this->tripService
             ->update(
                 $trip,
                 $request->label,
-                $country,
+                $request->country_iso2,
                 $request->location,
                 $request->date('date'),
                 $request->description,
@@ -87,6 +88,7 @@ class TripController extends ApiBaseController
                 $request->float('longitude'),
                 $request->boolean('shared')
             );
+
 
         return $this->createResponse($trip);
     }

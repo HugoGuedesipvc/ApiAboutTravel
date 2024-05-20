@@ -60,9 +60,9 @@ class UserRepository
 
     public function update(
         User    $user,
-        string  $name,
-        string  $email,
-        string  $username,
+        ?string $name,
+        ?string $email,
+        ?string $username,
         ?string $password,
         ?string $phoneNumber,
         ?string $profilePicture,
@@ -71,18 +71,17 @@ class UserRepository
     {
         try {
             $data = [
-                'name' => $name,
-                'email' => $email,
-                'username' => $username,
+                'name' => $name ?? $user->name,
+                'email' => $email ?? $user->email,
+                'username' => $username ?? $user->username,
                 'phone_number' => $phoneNumber ?? $user->phone_number,
                 'profile_picture' => $profilePicture ?? $user->profile_picture,
                 'description' => $description ?? $user->description,
             ];
 
-            if ($password) {
+            if ($password !== null) {
                 $data['password'] = Hash::make($password);
             }
-
             return $user->update($data);
         } catch (Throwable $e) {
             report($e);

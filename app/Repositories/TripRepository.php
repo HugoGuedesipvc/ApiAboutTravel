@@ -89,10 +89,10 @@ class TripRepository
 
     public function update(
         Trip     $trip,
-        string   $label,
+        ?string  $label,
         ?Country $country,
         ?string  $location,
-        Carbon   $date,
+        ?Carbon  $date,
         ?string  $description,
         ?string  $image,
         ?float   $latitude,
@@ -102,7 +102,7 @@ class TripRepository
     {
         try {
             $data = [
-                "label" => $label,
+                "label" => $label ?? $trip->label,
                 "country_id" => optional($country)->id ?? $trip->country_id,
                 "location" => $location ?? $trip->location,
                 "date" => optional($date)->format('Y-m-d') ?? $trip->date,

@@ -49,10 +49,10 @@ class UserService
 
     public function update(
         User    $user,
-        string  $name,
-        string  $email,
-        string  $username,
-        string  $password,
+        ?string $name,
+        ?string $email,
+        ?string $username,
+        ?string $password,
         ?string $phoneNumber,
         ?string $profile_picture,
         ?string $description,

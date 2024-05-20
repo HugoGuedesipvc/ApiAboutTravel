@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use AliReaza\Laravel\Request\Middleware\FormData;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\PreventRequestsDuringMaintenance;
@@ -65,6 +66,7 @@ class Kernel extends HttpKernel
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             ThrottleRequests::class . ':api',
             SubstituteBindings::class,
+            FormData::class
         ],
     ];
 
