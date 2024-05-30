@@ -28,6 +28,7 @@ class AuthenticateRequest extends FormRequest
             'email' => ['required_if:username,', 'email', 'exists:users,email'],
             'username' => ['required_if:email,', 'string', 'exists:users,username'],
             'password' => ['required', 'string', 'min:6'],
+
         ];
     }
 

@@ -4,8 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthenticateRequest;
+use App\Http\Requests\RegisterUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Services\UserService;
-use Illuminate\Http\Request;
 use Riftweb\Storage\Classes\RiftStorage;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
@@ -69,7 +70,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function register(Request $request)
+    public function register(RegisterUserRequest $request)
     {
         $user = $this->userService
             ->store(
@@ -90,7 +91,7 @@ class AuthController extends Controller
         ], $status ? ResponseAlias::HTTP_CREATED : ResponseAlias::HTTP_BAD_REQUEST);
     }
 
-    public function update(Request $request)
+    public function update(UpdateUserRequest $request)
     {
         $user = auth()->user();
 
