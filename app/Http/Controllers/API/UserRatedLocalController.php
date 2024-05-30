@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Requests\CreateUserRatingLocalRequest;
+use App\Http\Requests\UpdateUserRatingLocalRequest;
 use App\Models\Local;
 use App\Models\Trip;
 use App\Services\LocalService;
-use Illuminate\Http\Request;
 
 class UserRatedLocalController extends ApiBaseController
 {
@@ -14,7 +15,7 @@ class UserRatedLocalController extends ApiBaseController
         parent::__construct();
     }
 
-    public function store(Request $request, Trip $trip, Local $local)
+    public function store(CreateUserRatingLocalRequest $request, Trip $trip, Local $local)
     {
         if (!$this->checkShared($trip)) {
             return $this->unauthorizedResponse();
@@ -27,7 +28,7 @@ class UserRatedLocalController extends ApiBaseController
         return $this->createResponse($userRatedLocal);
     }
 
-    public function update(Request $request, Trip $trip, Local $local)
+    public function update(UpdateUserRatingLocalRequest $request, Trip $trip, Local $local)
     {
         if (!$this->checkShared($trip)) {
             return $this->unauthorizedResponse();

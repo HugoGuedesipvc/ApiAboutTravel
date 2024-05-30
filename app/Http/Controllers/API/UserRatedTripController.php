@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Requests\CreateUserRatingTripRequest;
+use App\Http\Requests\UpdateUserRatingTripRequest;
 use App\Models\Trip;
 use App\Services\TripService;
-use Illuminate\Http\Request;
 
 class UserRatedTripController extends ApiBaseController
 {
@@ -13,7 +14,7 @@ class UserRatedTripController extends ApiBaseController
         parent::__construct();
     }
 
-    public function store(Request $request, Trip $trip)
+    public function store(CreateUserRatingTripRequest $request, Trip $trip)
     {
         if (!$this->checkShared($trip)) {
             return $this->unauthorizedResponse();
@@ -26,7 +27,7 @@ class UserRatedTripController extends ApiBaseController
         return $this->createResponse($userRatedTrip);
     }
 
-    public function update(Request $request, Trip $trip)
+    public function update(UpdateUserRatingTripRequest $request, Trip $trip)
     {
 
         if (!$this->checkShared($trip)) {

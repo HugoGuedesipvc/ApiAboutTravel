@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Requests\CreateUserSharedTripRequest;
 use App\Services\TripService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class UserSharedTripController extends ApiBaseController
         return response()->json($userSharedTrips);
     }
 
-    public function store(Request $request)
+    public function store(CreateUserSharedTripRequest $request)
     {
         $trip = $this->tripService->find($request->trip_id);
 

@@ -10,6 +10,53 @@
 			"name": "Auth",
 			"item": [
 				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "riftweb2235",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "BP",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "phone_number",
+									"value": "555555555",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "fsefsefessef@fsefsefgr",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/auth/update",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Login",
 					"request": {
 						"auth": {
@@ -22,8 +69,9 @@
 							"formdata": [
 								{
 									"key": "email",
-									"value": "hugo.guedes@riftweb.com",
-									"type": "text"
+									"value": "fsefefsfsefsfseffef",
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "password",
@@ -32,9 +80,8 @@
 								},
 								{
 									"key": "username",
-									"value": "riftweb",
-									"type": "text",
-									"disabled": true
+									"value": "BlackPhantom",
+									"type": "text"
 								}
 							]
 						},
@@ -70,24 +117,6 @@
 					"response": []
 				},
 				{
-					"name": "Refresh",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/auth/refresh",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"auth",
-								"refresh"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Me",
 					"request": {
 						"method": "GET",
@@ -106,7 +135,25 @@
 					"response": []
 				},
 				{
-					"name": "Create_User",
+					"name": "Refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/auth/refresh",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -120,12 +167,12 @@
 								},
 								{
 									"key": "email",
-									"value": "fsefefsfsefsfseffef",
+									"value": "fsefefsfsefsfseffefyjy",
 									"type": "text"
 								},
 								{
 									"key": "username",
-									"value": "wdawdawdawdawd",
+									"value": "BP2",
 									"type": "text"
 								},
 								{
@@ -136,13 +183,31 @@
 							]
 						},
 						"url": {
-							"raw": "{{URL}}/auth/Create_user",
+							"raw": "{{URL}}/auth/register",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"auth",
-								"Create_user"
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Destroy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/auth/destroy",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"destroy"
 							]
 						}
 					},
@@ -176,77 +241,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/users/2",
+							"raw": "{{URL}}/users/6",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"users",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Patch",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "name",
-									"value": "riftweb223",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "username",
-									"value": "riftweb246",
-									"type": "text"
-								},
-								{
-									"key": "phone_number",
-									"value": "555555555",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "email",
-									"value": "fsefsefessef@fsefsefgr",
-									"type": "text",
-									"disabled": true
-								}
-							]
-						},
-						"url": {
-							"raw": "{{URL}}/users/2",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"users",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "me",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/users/me",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"users",
-								"me"
+								"6"
 							]
 						}
 					},
@@ -280,13 +281,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/trips/2",
+							"raw": "{{URL}}/trips/6",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"trips",
-								"2"
+								"6"
 							]
 						}
 					},
@@ -312,7 +313,7 @@
 							"formdata": [
 								{
 									"key": "label",
-									"value": "Testefile702",
+									"value": "Testefile",
 									"type": "text"
 								},
 								{
@@ -365,24 +366,23 @@
 								{
 									"key": "image",
 									"type": "file",
-									"src": "/C:/Users/hugog/Pictures/Screenshots/Captura de ecrã 2024-03-02 002617.png",
-									"disabled": true
+									"src": "/C:/Users/hugog/Pictures/JOMSS.png"
 								},
 								{
 									"key": "label",
-									"value": "joMS",
+									"value": "joMS2",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{URL}}/trips/31",
+							"raw": "{{URL}}/trips/1",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"trips",
-								"31"
+								"1"
 							]
 						}
 					},
@@ -394,182 +394,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/trips/10",
+							"raw": "{{URL}}/trips/32",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"trips",
-								"10"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "user_shared_trips",
-			"item": [
-				{
-					"name": "Index",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/user-shared-trips",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"user-shared-trips"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/user-shared-trips/6",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"user-shared-trips",
-								"6"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Store",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "trip_id",
-									"value": "4",
-									"type": "text"
-								},
-								{
-									"key": "user_id",
-									"value": "1",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{URL}}/user-shared-trips",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"user-shared-trips"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "trip_id",
-									"value": "4",
-									"type": "text"
-								},
-								{
-									"key": "user_id",
-									"value": "1",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{URL}}/user-shared-trips/13",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"user-shared-trips",
-								"13"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "user_rating_trips",
-			"item": [
-				{
-					"name": "Store",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "rating",
-									"value": "",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{URL}}/trips/14/user-rating-trips",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"trips",
-								"14",
-								"user-rating-trips"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Patch",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "rating",
-									"value": "5",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{URL}}/trips/14/user-rating-trips/12",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"trips",
-								"14",
-								"user-rating-trips",
-								"12"
+								"32"
 							]
 						}
 					},
@@ -586,13 +417,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/trips/1/locals",
+							"raw": "{{URL}}/trips/6/locals",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"trips",
-								"1",
+								"6",
 								"locals"
 							]
 						}
@@ -605,15 +436,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/trips/1/locals/11",
+							"raw": "{{URL}}/trips/6/locals/13",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"trips",
-								"1",
+								"6",
 								"locals",
-								"11"
+								"13"
 							]
 						}
 					},
@@ -627,11 +458,6 @@
 						"body": {
 							"mode": "formdata",
 							"formdata": [
-								{
-									"key": "trip_id",
-									"value": "1",
-									"type": "text"
-								},
 								{
 									"key": "local_type_id",
 									"value": "1",
@@ -649,12 +475,8 @@
 								},
 								{
 									"key": "files[]",
-									"type": "file",
-									"src": [
-										"/C:/Users/hugog/Pictures/JOMSS.png",
-										"/C:/Users/hugog/Pictures/Screenshots/Captura de ecrã 2024-03-02 001557.png",
-										"/C:/Users/hugog/Pictures/Screenshots/Captura de ecrã 2024-03-02 002446.png"
-									]
+									"value": "",
+									"type": "file"
 								}
 							]
 						},
@@ -725,6 +547,177 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/trips/1/locals/12",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"trips",
+								"1",
+								"locals",
+								"12"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user_shared_trips",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/user-shared-trips",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user-shared-trips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "trip_id",
+									"value": "33",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "10",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/user-shared-trips",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user-shared-trips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "trip_id",
+									"value": "33",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "10",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/user-shared-trips/13",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user-shared-trips",
+								"13"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user_rating_trips",
+			"item": [
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "rating",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/trips/6/user-rating-trips",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"trips",
+								"6",
+								"user-rating-trips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "rating",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/trips/2/user-rating-trips/3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"trips",
+								"2",
+								"user-rating-trips",
+								"3"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -747,15 +740,15 @@
 							]
 						},
 						"url": {
-							"raw": "{{URL}}/trips/14/locals/12/user-rating-locals",
+							"raw": "{{URL}}/trips/6/locals/13/user-rating-locals",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"trips",
-								"14",
+								"6",
 								"locals",
-								"12",
+								"13",
 								"user-rating-locals"
 							]
 						}
@@ -778,15 +771,15 @@
 							]
 						},
 						"url": {
-							"raw": "{{URL}}/trips/14/locals/12/user-rating-locals/13",
+							"raw": "{{URL}}/trips/6/locals/13/user-rating-locals/13",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"trips",
-								"14",
+								"6",
 								"locals",
-								"12",
+								"13",
 								"user-rating-locals",
 								"13"
 							]
@@ -838,10 +831,6 @@
 			"key": "URL",
 			"value": "https://apicommov.stacks.run/api",
 			"type": "string"
-		},
-		{
-			"key": "TRIP_ID",
-			"value": "3"
 		}
 	]
 }

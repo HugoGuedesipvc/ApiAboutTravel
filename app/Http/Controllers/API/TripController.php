@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Requests\StoreTripRequest;
+use App\Http\Requests\UpdateTripRequest;
 use App\Models\Trip;
 use App\Services\CountryService;
 use App\Services\TripService;
@@ -43,7 +45,7 @@ class TripController extends ApiBaseController
         return $this->showResponse($trip);
     }
 
-    public function update(Request $request, Trip $trip)
+    public function update(UpdateTripRequest $request, Trip $trip)
     {
         if (!$this->checkOwnership($trip)) {
             return $this->unauthorizedResponse();
@@ -68,7 +70,7 @@ class TripController extends ApiBaseController
         return $this->updateResponse($status, $trip);
     }
 
-    public function store(Request $request)
+    public function store(StoreTripRequest $request)
     {
         $trip = $this->tripService
             ->store(

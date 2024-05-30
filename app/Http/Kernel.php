@@ -65,10 +65,10 @@ class Kernel extends HttpKernel
 
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            ForceJsonResponseMiddleware::class,
             ThrottleRequests::class . ':api',
             SubstituteBindings::class,
-            FormData::class,
-            ForceJsonResponseMiddleware::class
+            FormData::class
         ],
     ];
 

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Requests\StoreLocalRequest;
+use App\Http\Requests\UpdateLocalRequest;
 use App\Models\Local;
 use App\Models\Trip;
 use App\Services\LocalFileService;
@@ -46,7 +48,7 @@ class LocalController extends ApiBaseController
         return $this->showResponse($local);
     }
 
-    public function update(Request $request, Trip $trip, Local $local)
+    public function update(UpdateLocalRequest $request, Trip $trip, Local $local)
     {
         if (!$this->checkOwnership($trip)) {
             return $this->unauthorizedResponse();
@@ -89,7 +91,7 @@ class LocalController extends ApiBaseController
         }
     }
 
-    public function store(Request $request, Trip $trip)
+    public function store(StoreLocalRequest $request, Trip $trip)
     {
         $localType = $this->localTypeService
             ->find($request->local_type_id);
