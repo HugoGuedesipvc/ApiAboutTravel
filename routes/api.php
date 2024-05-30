@@ -20,15 +20,15 @@ use App\Http\Controllers\API\UserRatedTripController;
 use App\Http\Controllers\API\UserSharedTripController;
 
 Route::group(['prefix' => 'auth'], function () {
-    Route::post("register", [UserController::class, 'store']);
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('me', [AuthController::class, 'me']);
+    Route::post('register', [AuthController::class, 'register']);
+    Route::patch('update', [AuthController::class, 'update']);
+    Route::delete('destroy', [AuthController::class, 'destroy']);
 });
 
-
-Route::post('users', [UserController::class, 'store'])->name('users.store');
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("trips", TripController::class);
     Route::apiResource("trips.locals", LocalController::class);

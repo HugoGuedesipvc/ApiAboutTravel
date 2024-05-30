@@ -44,7 +44,7 @@ class AuthController extends Controller
             'data' => [
                 'access_token' => $token,
                 'token_type' => 'bearer',
-                'expires_in' => auth('api')->factory()->getTTL() * 60
+                'expires_in' => auth('api')->factory()->getTTL() * 120
             ]
         ]);
     }
@@ -54,11 +54,6 @@ class AuthController extends Controller
         auth()->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
-    }
-
-    public function refresh()
-    {
-        return $this->respondWithToken(auth()->refresh());
     }
 
     public function me()
@@ -80,8 +75,8 @@ class AuthController extends Controller
             ->store(
                 $request->name,
                 $request->email,
-                $request->password,
                 $request->username,
+                $request->password,
                 $request->phone_number,
                 optional(RiftStorage::store($request->file('profilePicture'), 'users'))->path,
                 $request->description,
@@ -94,4 +89,45 @@ class AuthController extends Controller
             'data' => $user
         ], $status ? ResponseAlias::HTTP_CREATED : ResponseAlias::HTTP_BAD_REQUEST);
     }
+
+    public function update(Request $request)
+    {
+        $user = auth()->user();
+
+        $status = $this->userService
+            ->update(
+                $user,
+                $request->name,
+                $request->email,
+                $request->username,
+                $request->password,
+                $request->phone_number,
+                optional(RiftStorage::store($request->file('profilePicture'), 'users'))->path,
+                $request->description,
+            );
+
+        $user->refresh();
+
+        return response()->json([
+            'status' => $status ? 'success' : 'error',
+            'data' => $user
+        ], $status ? ResponseAlias::HTTP_OK : ResponseAlias::HTTP_BAD_REQUEST);
+    }
+
+    public function refresh()
+    {
+        return $this->respondWithToken(auth()->refresh());
+    }
+
+    public function destroy()
+    {
+        $user = auth()->user();
+        $status = $this->userService->delete($user);
+
+        return response()->json([
+            'status' => $status ? 'success' : 'error',
+        ], $status ? ResponseAlias::HTTP_OK : ResponseAlias::HTTP_BAD_REQUEST);
+
+    }
+
 }

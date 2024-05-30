@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
-use Riftweb\Storage\Classes\RiftStorage;
 
 class UserController extends ApiBaseController
 {
@@ -16,9 +15,11 @@ class UserController extends ApiBaseController
         parent::__construct();
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return $this->userService->all();
+        $users = $this->userService->all();
+        //$users = User::paginate($request->get('amount', 10));
+        return response()->json($users);
     }
 
     public function show(User $user)
@@ -26,45 +27,4 @@ class UserController extends ApiBaseController
         return $this->showResponse($user);
     }
 
-    public function update(Request $request)
-    {
-        $status = $this->userService
-            ->update(
-                $this->user,
-                $request->name,
-                $request->email,
-                $request->username,
-                $request->password,
-                $request->phone_number,
-                optional(RiftStorage::store($request->file('profilePicture'), 'users'))->path,
-                $request->description,
-            );
-
-        $this->user->refresh();
-
-        return $this->updateResponse($status, $this->user);
-    }
-
-    public function store(Request $request)
-    {
-        $user = $this->userService
-            ->store(
-                $request->name,
-                $request->email,
-                $request->password,
-                $request->username,
-                $request->phone_number,
-                optional(RiftStorage::store($request->file('profilePicture'), 'users'))->path,
-                $request->description,
-            );
-
-        return $this->createResponse($user);
-    }
-
-    public function destroy()
-    {
-        return $this->deleteResponse(
-            $this->userService->delete($this->user)
-        );
-    }
 }

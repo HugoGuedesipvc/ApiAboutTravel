@@ -23,7 +23,7 @@ class UserRatedTripController extends ApiBaseController
 
         $userRatedTrip = $trip->ratings()->where('user_id', $this->user->id)->first();
 
-        return $this->createResponse($trip);
+        return $this->createResponse($userRatedTrip);
     }
 
     public function update(Request $request, Trip $trip)

@@ -22,7 +22,7 @@ class TripController extends ApiBaseController
     {
         $trips = $this->user
             ->trips()
-            ->with(['ratings', 'userSharedTrips'])
+            //->with(['userSharedTrips', 'ratings',])
             ->paginate(
                 $request->get('amount', 20),
                 page: $request->get('page', 1)
@@ -38,7 +38,7 @@ class TripController extends ApiBaseController
             return $this->unauthorizedResponse();
         }
 
-        $trip->loadMissing(['ratings', 'userSharedTrips']);
+        $trip->loadMissing(['userSharedTrips', 'ratings', 'country']);
 
         return $this->showResponse($trip);
     }

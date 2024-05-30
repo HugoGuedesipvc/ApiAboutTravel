@@ -37,7 +37,7 @@ class LocalController extends ApiBaseController
 
     public function show(Trip $trip, Local $local)
     {
-        if (!$this->checkOwnership($trip)) {
+        if (!$this->checkOwnership($trip, true)) {
             return $this->unauthorizedResponse();
         }
 
@@ -121,7 +121,7 @@ class LocalController extends ApiBaseController
         if (!$this->checkOwnership($trip)) {
             return $this->unauthorizedResponse();
         }
-        
+
         return $this->deleteResponse(
             $this->localService->delete($local)
         );
