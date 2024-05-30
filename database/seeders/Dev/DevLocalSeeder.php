@@ -10,7 +10,7 @@ class DevLocalSeeder extends Seeder
     public function run(): void
     {
         Local::factory()
-            ->count(10)
+            ->count(30)
             ->create();
     }
 }

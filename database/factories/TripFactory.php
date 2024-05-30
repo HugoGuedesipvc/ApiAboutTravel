@@ -23,7 +23,7 @@ class TripFactory extends Factory
             'image' => 'https://via.placeholder.com/150',
             'latitude' => $this->faker->latitude,
             'longitude' => $this->faker->longitude,
-            'shared' => $this->faker->boolean(50),
+            'shared' => $this->faker->boolean(25),
         ];
     }
 }

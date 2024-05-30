@@ -33,13 +33,13 @@ class LocalRepository
     }
 
     public function store(
-        Trip $trip,
+        Trip      $trip,
         LocalType $localType,
-        string $label,
-        ?float $latitude,
-        ?float $longitude,
-        ?string $description,
-        Carbon $date
+        string    $label,
+        ?float    $latitude,
+        ?float    $longitude,
+        ?string   $description,
+        Carbon    $date
     ): ?Local
     {
         try {
@@ -62,13 +62,13 @@ class LocalRepository
     }
 
     public function update(
-        Local $local,
+        Local     $local,
         LocalType $localType,
-        String $label,
-        ?String $latitude,
-        ?String $longitude,
-        ?String $description,
-        Carbon $date
+        ?string   $label,
+        ?string   $latitude,
+        ?string   $longitude,
+        ?string   $description,
+        ?Carbon   $date
     ): bool
     {
         try {

@@ -55,11 +55,11 @@ class LocalService
     public function update(
         Local     $local,
         LocalType $localType,
-        string    $label,
+        ?string   $label,
         ?float    $latitude,
         ?float    $longitude,
         ?string   $description,
-        Carbon    $date
+        ?Carbon   $date
     ): bool
     {
         return $this->localRepository

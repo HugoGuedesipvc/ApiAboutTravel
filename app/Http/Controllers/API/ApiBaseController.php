@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Trip;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
@@ -25,6 +26,15 @@ class ApiBaseController extends Controller
         }
 
         return true;
+    }
+
+    public function checkShared(Trip $trip): bool
+    {
+        if (isset($trip->shared)) {
+            return $trip->shared === true;
+        }
+
+        return false;
     }
 
     public function unauthorizedResponse()

@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(Trip::class);
-            $table->integer('rating');
+            $table->integer('rating')->default(0);
         });
     }
 

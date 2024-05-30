@@ -18,12 +18,17 @@ class UserController extends ApiBaseController
 
     public function index()
     {
-        return $this->userService->find($this->userId);
+        return $this->userService->all();
+    }
+
+    public function me()
+    {
+        return $this->showResponse($this->user);
     }
 
     public function show(User $user)
     {
-        return $this->userService->find($user->id);
+        return $this->showResponse($user);
     }
 
     public function update(Request $request)
@@ -58,6 +63,7 @@ class UserController extends ApiBaseController
                 optional(RiftStorage::store($request->file('profilePicture'), 'users'))->path,
                 $request->description,
             );
+
         return $this->createResponse($user);
     }
 
@@ -65,6 +71,6 @@ class UserController extends ApiBaseController
     {
         $status = $this->userService->delete($this->user);
 
-        return $this->updateResponse($status, null);
+        return $this->deleteResponse($status);
     }
 }

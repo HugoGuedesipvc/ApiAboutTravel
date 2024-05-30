@@ -23,10 +23,6 @@ class LocalController extends ApiBaseController
 
     public function index(Request $request, Trip $trip)
     {
-        if (!$this->checkOwnership($trip)) {
-            return $this->unauthorizedResponse();
-        }
-
         $locals = $trip->locals()
             ->with(['localFiles', 'localType'])
             ->paginate($request->get('amount', 20),
@@ -37,21 +33,13 @@ class LocalController extends ApiBaseController
 
     public function show(Trip $trip, Local $local)
     {
-        if (!$this->checkOwnership($local) || !$this->checkOwnership($trip)) {
-            return $this->unauthorizedResponse();
-        }
-
-        $local->loadMissing(['ratings']);
+        $local->loadMissing(['ratings', 'localFiles', 'localType']);
 
         return $this->showResponse($local);
     }
 
     public function update(Request $request, Trip $trip, Local $local)
     {
-        if (!$this->checkOwnership($local) || !$this->checkOwnership($trip)) {
-            return $this->unauthorizedResponse();
-        }
-
         if ($request->has('local_type-id')) {
             $localType = $this->localTypeService->find($request->local_type_id);
         } else {
@@ -84,9 +72,6 @@ class LocalController extends ApiBaseController
 
     public function store(Request $request, Trip $trip)
     {
-        if (!$this->checkOwnership($trip)) {
-            return $this->unauthorizedResponse();
-        }
 
         $localType = $this->localTypeService->find($request->local_type_id);
 
@@ -100,7 +85,7 @@ class LocalController extends ApiBaseController
                 $request->description,
                 $request->date('date')
             );
-        //dd($request->file('files'));
+
         if ($request->has('files')) {
             foreach ($request->file('files') as $file) {
                 $filePath = RiftStorage::store($file, 'locals');
@@ -116,9 +101,6 @@ class LocalController extends ApiBaseController
 
     public function destroy(Trip $trip, Local $local)
     {
-        if (!$this->checkOwnership($local) || !$this->checkOwnership($trip)) {
-            return $this->unauthorizedResponse();
-        }
 
         $status = $this->localService->delete($local);
 

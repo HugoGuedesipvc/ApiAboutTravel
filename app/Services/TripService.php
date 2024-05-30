@@ -58,6 +58,38 @@ class TripService
             );
     }
 
+    public function delete(Trip $trip): bool
+    {
+        $trip->userSharedTrips()->sync([]);
+        return $this->tripRepository
+            ->delete(
+                $trip
+            );
+    }
+
+    public function getTripShared(): Collection
+    {
+        return $this->tripRepository
+            ->getTripShared();
+    }
+
+    public function updateShared(Trip $trip, bool $shared): bool
+    {
+
+        return $this->update(
+            $trip,
+            null, // label
+            null, // country
+            null, // location
+            null, // date
+            null, // description
+            null, // image
+            null, // latitude
+            null, // longitude
+            $shared // shared
+        );
+    }
+
     public function update(
         Trip     $trip,
         ?string  $label,
@@ -68,7 +100,7 @@ class TripService
         ?string  $image,
         ?float   $latitude,
         ?float   $longitude,
-        ?bool    $shared = null
+        ?bool    $shared
     ): bool
     {
         return $this->tripRepository
@@ -84,19 +116,5 @@ class TripService
                 $longitude,
                 $shared
             );
-    }
-
-    public function delete(Trip $trip): bool
-    {
-        return $this->tripRepository
-            ->delete(
-                $trip
-            );
-    }
-
-    public function getTripShared(): Collection
-    {
-        return $this->tripRepository
-            ->getTripShared();
     }
 }

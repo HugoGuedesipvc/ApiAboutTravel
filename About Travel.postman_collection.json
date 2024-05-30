@@ -22,9 +22,8 @@
 							"formdata": [
 								{
 									"key": "email",
-									"value": "geral@riftweb.com",
-									"type": "text",
-									"disabled": true
+									"value": "hugo.guedes@riftweb.com",
+									"type": "text"
 								},
 								{
 									"key": "password",
@@ -34,7 +33,8 @@
 								{
 									"key": "username",
 									"value": "riftweb",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								}
 							]
 						},
@@ -104,6 +104,153 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Create_User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "testttt2",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "fsefefsfsefsfseffef",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "wdawdawdawdawd",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456789",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/auth/Create_user",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"Create_user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users/2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "riftweb223",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "riftweb246",
+									"type": "text"
+								},
+								{
+									"key": "phone_number",
+									"value": "555555555",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "fsefsefessef@fsefsefgr",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/users/2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "me",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users/me",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -133,7 +280,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "{{URL}}/trips/2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"trips",
+								"2"
+							]
 						}
 					},
 					"response": []
@@ -158,7 +312,7 @@
 							"formdata": [
 								{
 									"key": "label",
-									"value": "Teste",
+									"value": "Testefile702",
 									"type": "text"
 								},
 								{
@@ -170,6 +324,11 @@
 									"key": "date",
 									"value": "2024-05-19",
 									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/hugog/Pictures/JOMSS.png"
 								}
 							]
 						},
@@ -202,30 +361,28 @@
 						"header": [],
 						"body": {
 							"mode": "formdata",
-							"formdata": []
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/hugog/Pictures/Screenshots/Captura de ecrã 2024-03-02 002617.png",
+									"disabled": true
+								},
+								{
+									"key": "label",
+									"value": "joMS",
+									"type": "text"
+								}
+							]
 						},
 						"url": {
-							"raw": "{{URL}}/trips/{{TRIP_ID}}?label=Teste&country_iso2=PT&date=2024-05-19",
+							"raw": "{{URL}}/trips/31",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"trips",
-								"{{TRIP_ID}}"
-							],
-							"query": [
-								{
-									"key": "label",
-									"value": "Teste"
-								},
-								{
-									"key": "country_iso2",
-									"value": "PT"
-								},
-								{
-									"key": "date",
-									"value": "2024-05-19"
-								}
+								"31"
 							]
 						}
 					},
@@ -237,13 +394,182 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/trips/{{TRIP_ID}}",
+							"raw": "{{URL}}/trips/10",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"trips",
-								"{{TRIP_ID}}"
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user_shared_trips",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/user-shared-trips",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user-shared-trips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/user-shared-trips/6",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user-shared-trips",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "trip_id",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/user-shared-trips",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user-shared-trips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "trip_id",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/user-shared-trips/13",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user-shared-trips",
+								"13"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user_rating_trips",
+			"item": [
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "rating",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/trips/14/user-rating-trips",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"trips",
+								"14",
+								"user-rating-trips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "rating",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/trips/14/user-rating-trips/12",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"trips",
+								"14",
+								"user-rating-trips",
+								"12"
 							]
 						}
 					},
@@ -279,7 +605,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/trips/1/locals/1",
+							"raw": "{{URL}}/trips/1/locals/11",
 							"host": [
 								"{{URL}}"
 							],
@@ -287,7 +613,7 @@
 								"trips",
 								"1",
 								"locals",
-								"1"
+								"11"
 							]
 						}
 					},
@@ -313,22 +639,33 @@
 								},
 								{
 									"key": "label",
-									"value": "test3",
+									"value": "testfile2dfdfefsefseffsefes",
 									"type": "text"
 								},
 								{
 									"key": "date",
 									"value": "2024-05-19",
 									"type": "text"
+								},
+								{
+									"key": "files[]",
+									"type": "file",
+									"src": [
+										"/C:/Users/hugog/Pictures/JOMSS.png",
+										"/C:/Users/hugog/Pictures/Screenshots/Captura de ecrã 2024-03-02 001557.png",
+										"/C:/Users/hugog/Pictures/Screenshots/Captura de ecrã 2024-03-02 002446.png"
+									]
 								}
 							]
 						},
 						"url": {
-							"raw": "{{URL}}/locals",
+							"raw": "{{URL}}/trips/1/locals",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
+								"trips",
+								"1",
 								"locals"
 							]
 						}
@@ -338,26 +675,120 @@
 				{
 					"name": "Patch",
 					"request": {
-						"auth": {
-							"type": "bearer"
-						},
 						"method": "PATCH",
 						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "label",
+									"value": "testfinish29",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "date",
+									"value": "2024-05-19",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "files[]",
+									"type": "file",
+									"src": "/C:/Users/hugog/Pictures/Screenshots/Captura de ecrã 2024-03-02 002617.png"
+								}
+							]
+						},
 						"url": {
-							"raw": "{{URL}}/locals/1/?label=test2efsefse",
+							"raw": "{{URL}}/trips/1/locals/11",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
-								"locals",
+								"trips",
 								"1",
-								""
+								"locals",
+								"11"
 							],
 							"query": [
 								{
 									"key": "label",
-									"value": "test2efsefse"
+									"value": "testefinishupdate",
+									"disabled": true
+								},
+								{
+									"key": "date",
+									"value": "2024-05-23",
+									"disabled": true
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user_rating_locals",
+			"item": [
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "rating",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/trips/14/locals/12/user-rating-locals",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"trips",
+								"14",
+								"locals",
+								"12",
+								"user-rating-locals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "rating",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/trips/14/locals/12/user-rating-locals/13",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"trips",
+								"14",
+								"locals",
+								"12",
+								"user-rating-locals",
+								"13"
 							]
 						}
 					},

@@ -10,7 +10,7 @@ class DevTripSeeder extends Seeder
     public function run(): void
     {
         Trip::factory()
-            ->count(30)
+            ->count(12)
             ->create();
     }
 }

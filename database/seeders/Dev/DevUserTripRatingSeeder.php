@@ -9,7 +9,8 @@ class DevUserTripRatingSeeder extends Seeder
 {
     public function run(): void
     {
-        Trip::inRandomOrder()
+        Trip::where('shared', true)
+            ->inRandomOrder()
             ->limit(10)
             ->get()
             ->each(function (Trip $trip) {
