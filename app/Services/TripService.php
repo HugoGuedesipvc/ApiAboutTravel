@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Repositories\TripRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
+use Throwable;
 
 class TripService
 {
@@ -75,32 +76,23 @@ class TripService
 
     public function updateShared(Trip $trip, bool $shared): bool
     {
-
         return $this->update(
             $trip,
-            null, // label
-            null, // country
-            null, // location
-            null, // date
-            null, // description
-            null, // image
-            null, // latitude
-            null, // longitude
-            $shared // shared
+            shared: $shared
         );
     }
 
     public function update(
         Trip     $trip,
-        ?string  $label,
-        ?Country $country,
-        ?string  $location,
-        ?Carbon  $date,
-        ?string  $description,
-        ?string  $image,
-        ?float   $latitude,
-        ?float   $longitude,
-        ?bool    $shared
+        ?string  $label = null,
+        ?Country $country = null,
+        ?string  $location = null,
+        ?Carbon  $date = null,
+        ?string  $description = null,
+        ?string  $image = null,
+        ?float   $latitude = null,
+        ?float   $longitude = null,
+        ?bool    $shared = null
     ): bool
     {
         return $this->tripRepository
@@ -116,5 +108,71 @@ class TripService
                 $longitude,
                 $shared
             );
+    }
+
+    public function attachUserSharedTrip(Trip $trip, User $user): bool
+    {
+        try {
+            $trip->userSharedTrips()->attach($user);
+            $this->update($trip, shared: true);
+
+            return true;
+        } catch (Throwable $e) {
+            report($e);
+            return false;
+        }
+    }
+
+    public function detachUserSharedTrip(Trip $trip, User $user): bool
+    {
+        try {
+            $trip->userSharedTrips()->detach($user);
+
+            if ($trip->userSharedTrips()->get()->isEmpty()) {
+                $this->update($trip, shared: false);
+            }
+
+            return true;
+        } catch (Throwable $e) {
+            report($e);
+            return false;
+        }
+    }
+
+    public function attachRating(Trip $trip, User $user, int $rating = 0): bool
+    {
+        try {
+            $trip->ratings()
+                ->attach($user, ['rating' => $rating]);
+            return true;
+        } catch (Throwable $e) {
+            report($e);
+            return false;
+        }
+    }
+
+    public function updateRating(Trip $trip, User $user, int $rating = 0): bool
+    {
+        try {
+            $trip->ratings()
+                ->updateExistingPivot($user, ['rating' => $rating]);
+
+            return true;
+        } catch (Throwable $e) {
+            report($e);
+            return false;
+        }
+    }
+
+    public function detachRating(Trip $trip, User $user): bool
+    {
+        try {
+            $trip->ratings()
+                ->detach($user);
+            return true;
+        } catch (Throwable $e) {
+            report($e);
+            return false;
+        }
     }
 }

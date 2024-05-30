@@ -6,9 +6,11 @@ namespace App\Services;
 use App\Models\Local;
 use App\Models\LocalType;
 use App\Models\Trip;
+use App\Models\User;
 use App\Repositories\LocalRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
+use Throwable;
 
 class LocalService
 {
@@ -81,5 +83,42 @@ class LocalService
             ->delete(
                 $local
             );
+    }
+
+    public function attachRating(Local $local, User $user, int $rating = 0): bool
+    {
+        try {
+            $local->ratings()
+                ->attach($user, ['rating' => $rating]);
+            return true;
+        } catch (Throwable $e) {
+            report($e);
+            return false;
+        }
+    }
+
+    public function updateRating(Local $local, User $user, int $rating = 0): bool
+    {
+        try {
+            $local->ratings()
+                ->updateExistingPivot($user, ['rating' => $rating]);
+
+            return true;
+        } catch (Throwable $e) {
+            report($e);
+            return false;
+        }
+    }
+
+    public function detachRating(Local $local, User $user): bool
+    {
+        try {
+            $local->ratings()
+                ->detach($user);
+            return true;
+        } catch (Throwable $e) {
+            report($e);
+            return false;
+        }
     }
 }

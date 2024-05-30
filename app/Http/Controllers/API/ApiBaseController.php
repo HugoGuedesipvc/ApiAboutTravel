@@ -19,10 +19,17 @@ class ApiBaseController extends Controller
         $this->user = auth('api')->user();
     }
 
-    public function checkOwnership($model): bool
+    public function checkOwnership($model, $checkForSharedTrip = false): bool
     {
+        $isSharedTrip = false;
+        if ($checkForSharedTrip && $model instanceof Trip) {
+            $isSharedTrip = $model->userSharedTrips()
+                ->where('user_id', $this->user->id)
+                ->exists();
+        }
+
         if (isset($model->user_id)) {
-            return $model->user_id === $this->user->id;
+            return $isSharedTrip || $model->user_id === $this->user->id;
         }
 
         return true;
@@ -55,6 +62,14 @@ class ApiBaseController extends Controller
             'status' => $status ? 'success' : 'error',
             'data' => $data
         ], $status ? $responseSuccess : $responseError);
+    }
+
+    public function errorResponse(): JsonResponse
+    {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'An error occurred'
+        ], ResponseAlias::HTTP_BAD_REQUEST);
     }
 
     public function showResponse($data): JsonResponse

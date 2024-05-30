@@ -11,30 +11,29 @@
 |
 */
 
-// Auth
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\LocalController;
 use App\Http\Controllers\API\TripController;
-use App\Http\Controllers\API\TripShareController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\UserRatedLocalController;
 use App\Http\Controllers\API\UserRatedTripController;
 use App\Http\Controllers\API\UserSharedTripController;
 
 Route::group(['prefix' => 'auth'], function () {
+    Route::post("register", [UserController::class, 'store']);
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('me', [AuthController::class, 'me']);
-    Route::post("Create_user", [UserController::class, 'store']);
 });
 
+
+Route::post('users', [UserController::class, 'store'])->name('users.store');
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("trips", TripController::class);
     Route::apiResource("trips.locals", LocalController::class);
-    Route::get("users/me", [UserController::class, 'me']);
-    Route::apiResource("users", UserController::class);
-    Route::apiResource("user-shared-trips", UserSharedTripController::class);
-    Route::apiResource("trips.user-rating-trips", UserRatedTripController::class);
-    Route::apiResource("trips.locals.user-rating-locals", UserRatedLocalController::class);
+    Route::apiResource("users", UserController::class)->except(['store']);
+    Route::apiResource("user-shared-trips", UserSharedTripController::class)->except(['show', 'update']);
+    Route::apiResource("trips.user-rating-trips", UserRatedTripController::class)->except(['index', 'show']);
+    Route::apiResource("trips.locals.user-rating-locals", UserRatedLocalController::class)->except(['index', 'show']);
 });

@@ -21,11 +21,6 @@ class UserController extends ApiBaseController
         return $this->userService->all();
     }
 
-    public function me()
-    {
-        return $this->showResponse($this->user);
-    }
-
     public function show(User $user)
     {
         return $this->showResponse($user);
@@ -33,7 +28,6 @@ class UserController extends ApiBaseController
 
     public function update(Request $request)
     {
-
         $status = $this->userService
             ->update(
                 $this->user,
@@ -69,8 +63,8 @@ class UserController extends ApiBaseController
 
     public function destroy()
     {
-        $status = $this->userService->delete($this->user);
-
-        return $this->deleteResponse($status);
+        return $this->deleteResponse(
+            $this->userService->delete($this->user)
+        );
     }
 }

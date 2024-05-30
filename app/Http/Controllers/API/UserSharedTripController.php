@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 
 class UserSharedTripController extends ApiBaseController
 {
-    public function __construct(protected UserService $userService, protected TripService $tripService)
+    public function __construct(
+        protected UserService $userService,
+        protected TripService $tripService
+    )
     {
         parent::__construct();
 
@@ -17,21 +20,11 @@ class UserSharedTripController extends ApiBaseController
     public function index()
     {
         $userSharedTrips = $this->user
-            ->usersharedTrips()
-            ->with('ratings')
+            ->userSharedTrips()
+            ->with(['ratings'])
             ->paginate(20);
 
         return response()->json($userSharedTrips);
-    }
-
-    public function show($id)
-    {
-        $userSharedTrip = $this->user
-            ->usersharedTrips()
-            ->with('ratings')
-            ->find($id);
-
-        return $this->showResponse($userSharedTrip);
     }
 
     public function store(Request $request)
@@ -42,30 +35,29 @@ class UserSharedTripController extends ApiBaseController
             return $this->unauthorizedResponse();
         }
 
-        $this->tripService->updateShared($trip, true);
-        $user = $this->userService->find($request->user_id);
-        $user->usersharedTrips()->attach($trip);
+        $userToAttach = $this->userService->find($request->user_id);
+        $this->tripService->attachUserSharedTrip($trip, $userToAttach);
 
         $trip->loadMissing("userSharedTrips");
 
-        return $this->createResponse($trip);
+        $userSharedTrip = $trip->userSharedTrips()
+            ->where('user_id', $userToAttach->id)
+            ->first();
+
+        return $this->createResponse($userSharedTrip);
     }
 
     public function destroy(Request $request)
     {
-
         $trip = $this->tripService->find($request->trip_id);
 
         if (!$this->checkOwnership($trip)) {
             return $this->unauthorizedResponse();
         }
 
-        $user = $this->userService->find($request->user_id);
-        $user->userSharedTrips()->detach($trip);
-        $this->tripService->updateShared($trip, false);
+        $userToDetach = $this->userService->find($request->user_id);
+        $status = $this->tripService->detachUserSharedTrip($trip, $userToDetach);
 
-        return $this->deleteResponse($trip);
+        return $this->deleteResponse($status);
     }
-
-
 }

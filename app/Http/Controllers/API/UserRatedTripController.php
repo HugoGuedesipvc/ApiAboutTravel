@@ -13,28 +13,17 @@ class UserRatedTripController extends ApiBaseController
         parent::__construct();
     }
 
-    public function index()
-    {
-
-    }
-
     public function store(Request $request, Trip $trip)
     {
         if (!$this->checkShared($trip)) {
             return $this->unauthorizedResponse();
         }
 
-        $rating = $request->rating;
+        $this->tripService->attachRating($trip, $this->user, $request->integer('rating'));
 
-        $trip->ratings()->attach(auth()->id(), ['rating' => $rating]);
-
-        $trip->loadMissing(['ratings']);
+        $userRatedTrip = $trip->ratings()->where('user_id', $this->user->id)->first();
 
         return $this->createResponse($trip);
-    }
-
-    public function show($id)
-    {
     }
 
     public function update(Request $request, Trip $trip)
@@ -44,17 +33,21 @@ class UserRatedTripController extends ApiBaseController
             return $this->unauthorizedResponse();
         }
 
-        $rating = $request->rating;
+        $status = $this->tripService->updateRating($trip, $this->user, $request->integer('rating'));
 
-        $trip->ratings()->updateExistingPivot(auth()->id(), ['rating' => $rating]);
+        $userRatedTrip = $trip->ratings()->where('user_id', $this->user->id)->first();
 
-        $trip->loadMissing(['ratings']);
-
-        return $this->createResponse($trip);
-
+        return $this->updateResponse($status, $userRatedTrip);
     }
 
-    public function destroy($id)
+    public function destroy(Trip $trip)
     {
+        if (!$this->checkShared($trip)) {
+            return $this->unauthorizedResponse();
+        }
+
+        $status = $this->$trip->detachRating($trip, $this->user);
+
+        return $this->deleteResponse($status);
     }
 }

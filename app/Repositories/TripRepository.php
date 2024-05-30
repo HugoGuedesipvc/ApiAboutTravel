@@ -89,14 +89,14 @@ class TripRepository
 
     public function update(
         Trip     $trip,
-        ?string  $label,
-        ?Country $country,
-        ?string  $location,
-        ?Carbon  $date,
-        ?string  $description,
-        ?string  $image,
-        ?float   $latitude,
-        ?float   $longitude,
+        ?string  $label = null,
+        ?Country $country = null,
+        ?string  $location = null,
+        ?Carbon  $date = null,
+        ?string  $description = null,
+        ?string  $image = null,
+        ?float   $latitude = null,
+        ?float   $longitude = null,
         ?bool    $shared = null
     ): bool
     {

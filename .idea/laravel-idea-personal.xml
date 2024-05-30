@@ -6,6 +6,7 @@
         <entry key="createResourceController.apiOnly" value="1" />
         <entry key="newModelSimpleOption:addFillable" value="1" />
         <entry key="newModelSimpleOption:softDeletes" value="1" />
+        <entry key="postGeneration:migration2" value="" />
       </map>
     </option>
   </component>

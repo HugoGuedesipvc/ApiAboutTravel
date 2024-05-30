@@ -22,7 +22,7 @@ class TripController extends ApiBaseController
     {
         $trips = $this->user
             ->trips()
-            ->with('ratings', 'userSharedTrips')
+            ->with(['ratings', 'userSharedTrips'])
             ->paginate(
                 $request->get('amount', 20),
                 page: $request->get('page', 1)
@@ -34,7 +34,7 @@ class TripController extends ApiBaseController
 
     public function show(Trip $trip)
     {
-        if (!$this->checkOwnership($trip)) {
+        if (!$this->checkOwnership($trip, true)) {
             return $this->unauthorizedResponse();
         }
 
@@ -70,14 +70,11 @@ class TripController extends ApiBaseController
 
     public function store(Request $request)
     {
-        $country = $this->countryService
-            ->findByIso2($request->country_iso2);
-
         $trip = $this->tripService
             ->store(
                 $this->user,
                 $request->label,
-                $country,
+                $this->countryService->findByIso2($request->country_iso2),
                 $request->location,
                 $request->date('date'),
                 $request->description,
@@ -86,7 +83,6 @@ class TripController extends ApiBaseController
                 $request->float('longitude'),
                 $request->boolean('shared')
             );
-
 
         return $this->createResponse($trip);
     }
@@ -97,8 +93,8 @@ class TripController extends ApiBaseController
             return $this->unauthorizedResponse();
         }
 
-        $status = $this->tripService->delete($trip);
-
-        return $this->deleteResponse($status);
+        return $this->deleteResponse(
+            $this->tripService->delete($trip)
+        );
     }
 }

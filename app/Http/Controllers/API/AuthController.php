@@ -4,12 +4,16 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthenticateRequest;
+use App\Services\UserService;
+use Illuminate\Http\Request;
+use Riftweb\Storage\Classes\RiftStorage;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class AuthController extends Controller
 {
-    public function __construct()
+    public function __construct(protected UserService $userService)
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
     public function login(AuthenticateRequest $request)
@@ -68,5 +72,26 @@ class AuthController extends Controller
             'status' => $status ? 'Authenticated' : 'Unauthenticated',
             'user' => $user
         ]);
+    }
+
+    public function register(Request $request)
+    {
+        $user = $this->userService
+            ->store(
+                $request->name,
+                $request->email,
+                $request->password,
+                $request->username,
+                $request->phone_number,
+                optional(RiftStorage::store($request->file('profilePicture'), 'users'))->path,
+                $request->description,
+            );
+
+        $status = !is_null($user);
+
+        return response()->json([
+            'status' => $status ? 'success' : 'error',
+            'data' => $user
+        ], $status ? ResponseAlias::HTTP_CREATED : ResponseAlias::HTTP_BAD_REQUEST);
     }
 }
