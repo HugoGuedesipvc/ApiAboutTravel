@@ -12,12 +12,15 @@
 */
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\HomeController;
 use App\Http\Controllers\API\LocalController;
 use App\Http\Controllers\API\TripController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\UserRatedLocalController;
 use App\Http\Controllers\API\UserRatedTripController;
 use App\Http\Controllers\API\UserSharedTripController;
+
+Route::apiResource("home", HomeController::class)->only(['index']);
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [AuthController::class, 'login']);

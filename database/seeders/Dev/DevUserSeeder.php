@@ -14,7 +14,6 @@ class DevUserSeeder extends Seeder
     public function run(): void
     {
         $data = [
-            ['name' => 'Leandro Santos', 'email' => 'geral@riftweb.com', 'username' => 'riftweb', 'password' => '123456789', 'phone_number' => '925432018', 'profile_picture' => 'https://www.riftweb.com/profile.jpg', 'description' => 'Web Developer'],
             ['name' => 'Hugo Guedes', 'email' => 'hugo.guedes@riftweb.com', 'username' => 'riftweb2', 'password' => '123456789', 'phone_number' => '925432018', 'profile_picture' => 'https://www.riftweb.com/profile.jpg', 'description' => 'Web Developer'],
         ];
 

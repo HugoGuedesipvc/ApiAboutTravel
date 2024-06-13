@@ -14,7 +14,7 @@ class AuthController extends Controller
 {
     public function __construct(protected UserService $userService)
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'refresh']]);
     }
 
     public function login(AuthenticateRequest $request)
@@ -45,7 +45,7 @@ class AuthController extends Controller
             'data' => [
                 'access_token' => $token,
                 'token_type' => 'bearer',
-                'expires_in' => auth('api')->factory()->getTTL() * 120
+                'expires_in' => auth('api')->factory()->getTTL() //* 120
             ]
         ]);
     }
@@ -117,6 +117,7 @@ class AuthController extends Controller
 
     public function refresh()
     {
+        dd(auth()->check());
         return $this->respondWithToken(auth()->refresh());
     }
 
