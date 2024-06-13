@@ -4,50 +4,21 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthenticateRequest;
+use App\Http\Requests\RefreshTokenRequest;
 use App\Http\Requests\RegisterUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Mappings\JWTMapping;
+use App\Services\JWTService;
 use App\Services\UserService;
 use Riftweb\Storage\Classes\RiftStorage;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
+use Throwable;
 
 class AuthController extends Controller
 {
-    public function __construct(protected UserService $userService)
+    public function __construct(protected UserService $userService, protected JWTService $jwtService)
     {
         $this->middleware('auth:api', ['except' => ['login', 'register', 'refresh']]);
-    }
-
-    public function login(AuthenticateRequest $request)
-    {
-        $credentials = ['password' => $request->password];
-        if ($request->has('email')) {
-            $credentials['email'] = $request->email;
-        } elseif ($request->has('username')) {
-            $credentials['username'] = $request->username;
-        }
-
-        if (!$token = auth('api')->attempt($credentials)) {
-            return response()->json(
-                ['error' => 'Unauthorized'],
-                401
-            );
-        }
-
-        return $this->respondWithToken($token);
-    }
-
-    private function respondWithToken(?string $token = null)
-    {
-        $status = !is_null($token);
-
-        return response()->json([
-            'status' => $status ? 'Authenticated' : 'Unauthenticated',
-            'data' => [
-                'access_token' => $token,
-                'token_type' => 'bearer',
-                'expires_in' => auth('api')->factory()->getTTL() //* 120
-            ]
-        ]);
     }
 
     public function logout()
@@ -115,10 +86,45 @@ class AuthController extends Controller
         ], $status ? ResponseAlias::HTTP_OK : ResponseAlias::HTTP_BAD_REQUEST);
     }
 
-    public function refresh()
+    public function refresh(RefreshTokenRequest $request)
     {
-        dd(auth()->check());
-        return $this->respondWithToken(auth()->refresh());
+        try {
+            $tokens = $this->jwtService->refreshToken($request->refresh_token);
+
+            return $this->respondWithToken(
+                $tokens['token'],
+                $tokens['refreshToken']
+            );
+        } catch (Throwable $e) {
+            report($e);
+            return response()->json([
+                'error' => $e->getMessage()
+            ], ResponseAlias::HTTP_UNAUTHORIZED);
+        }
+    }
+
+    private function respondWithToken(?string $token = null, ?string $refreshToken = null)
+    {
+        return response()->json(
+            JWTMapping::mapTokenResponse($token, $refreshToken)
+        );
+    }
+
+    public function login(AuthenticateRequest $request)
+    {
+        $credentials = JWTMapping::mapCredentials($request);
+
+        $token = $this->jwtService->getTokenWithCredentials($credentials);
+        if (!$token) {
+            return response()->json(
+                ['error' => 'Unauthorized'],
+                ResponseAlias::HTTP_UNAUTHORIZED
+            );
+        }
+
+        $refreshToken = $this->jwtService->getRefreshTokenWithCredentials($credentials);
+
+        return $this->respondWithToken($token, $refreshToken);
     }
 
     public function destroy()

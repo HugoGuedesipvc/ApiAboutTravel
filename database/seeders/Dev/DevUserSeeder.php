@@ -14,7 +14,9 @@ class DevUserSeeder extends Seeder
     public function run(): void
     {
         $data = [
-            ['name' => 'Hugo Guedes', 'email' => 'hugo.guedes@riftweb.com', 'username' => 'riftweb2', 'password' => '123456789', 'phone_number' => '925432018', 'profile_picture' => 'https://www.riftweb.com/profile.jpg', 'description' => 'Web Developer'],
+            ['name' => 'Hugo Guedes', 'email' => 'hugo.guedes@riftweb.com', 'username' => 'Jhon', 'password' => '123456789', 'phone_number' => '999999999', 'profile_picture' => 'test', 'description' => 'hhhhh'],
+            ['name' => 'TestName 1', 'email' => 'hugo.guedes@riftweb.com', 'username' => 'Jhon2', 'password' => '123456789', 'phone_number' => '999999999', 'profile_picture' => 'test', 'description' => 'hhhhh'],
+            ['name' => 'TestName 2', 'email' => 'hugo.guedes@riftweb.com', 'username' => 'Jhon3', 'password' => '123456789', 'phone_number' => '999999999', 'profile_picture' => 'test', 'description' => 'hhhhh']
         ];
 
         foreach ($data as $item) {
