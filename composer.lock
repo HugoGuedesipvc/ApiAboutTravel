@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "525ed10e925cdf8e2433663b41935686",
+    "content-hash": "43b6da057f00c48e742570ab1f28c148",
     "packages": [
         {
             "name": "alireaza/laravel-form-data",
@@ -333,6 +333,66 @@
                 }
             ],
             "time": "2023-12-11T17:09:12+00:00"
+        },
+        {
+            "name": "chrysanthos/pulse-requests",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chrysanthos/pulse-requests.git",
+                "reference": "e56c4859dc541b45dc6477ac073f43e72499b1a6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chrysanthos/pulse-requests/zipball/e56c4859dc541b45dc6477ac073f43e72499b1a6",
+                "reference": "e56c4859dc541b45dc6477ac073f43e72499b1a6",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/pulse": "^1.0@beta",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.5.0",
+                "orchestra/testbench": "^8.17",
+                "phpunit/phpunit": "^10"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Chrysanthos\\PulseRequests\\PulseRequestsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Chrysanthos\\PulseRequests\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chrysanthos Prodromou",
+                    "email": "me@chrysanthos.xyz",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Laravel Pulse package for Requests",
+            "homepage": "https://github.com/chrysanthos/pulse-requests",
+            "keywords": [
+                "Chrysanthos",
+                "Laravel Pulse",
+                "Laravel Pulse Requests"
+            ],
+            "support": {
+                "issues": "https://github.com/chrysanthos/pulse-requests/issues",
+                "source": "https://github.com/chrysanthos/pulse-requests/tree/1.0.5"
+            },
+            "time": "2024-02-02T18:06:26+00:00"
         },
         {
             "name": "dflydev/dot-access-data",

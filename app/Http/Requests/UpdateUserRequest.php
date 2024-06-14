@@ -18,11 +18,11 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['nullable', 'string', 'max:2'],
+            'name' => ['nullable', 'string', 'max:60'],
             'email' => ['nullable', 'string', 'email', 'max:140', 'unique:users,email,' . $this->userId],
             'username' => ['nullable', 'string', 'max:60', 'unique:users,username,' . $this->userId],
             'password' => ['nullable', 'string', 'min:6'],
-            'phone_number' => ['nullable', 'int', 'max:12'],
+            'phone_number' => ['nullable', 'numeric', 'digits_between:9,12'],
             'profile_picture' => ['nullable', 'file', "mimes:jpeg,png,jpg", 'max:2048'],
             'description' => ['nullable', 'string', 'max:800'],
         ];

@@ -73,7 +73,7 @@ class AuthController extends Controller
                 $request->email,
                 $request->username,
                 $request->password,
-                $request->phone_number,
+                $request->phoneNumber,
                 optional(RiftStorage::store($request->file('profilePicture'), 'users'))->path,
                 $request->description,
             );
