@@ -13,12 +13,15 @@ class TripFactory extends Factory
 
     public function definition(): array
     {
+        $initialDate = $this->faker->dateTimeBetween('-1 years', 'now');
+
         return [
             'user_id' => User::inRandomOrder()->first()->id,
             'label' => $this->faker->sentence,
             'country_id' => Country::inRandomOrder()->first()->id,
             'location' => $this->faker->word,
-            'date' => $this->faker->date,
+            'initialDate' => $initialDate,
+            'endDate' => $this->faker->dateTimeBetween($initialDate, '+1 years'),
             'description' => $this->faker->paragraph,
             'image' => 'https://via.placeholder.com/150',
             'latitude' => $this->faker->latitude,

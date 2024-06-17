@@ -15,7 +15,8 @@ return new class extends Migration {
             $table->string('label');
             $table->foreignIdFor(Country::class)->nullable();
             $table->string('location')->nullable();
-            $table->timestamp('date');
+            $table->timestamp('initialDate');
+            $table->timestamp('endDate');
             $table->longText('description')->nullable();
             $table->string('image')->nullable();
             $table->decimal('latitude')->nullable();
