@@ -18,8 +18,8 @@ class Trip extends Model
         'user_id',
         'country_id',
         'location',
-        'initialDate',
-        'endDate',
+        'initial_date',
+        'end_date',
         'description',
         'latitude',
         'longitude',
@@ -32,8 +32,8 @@ class Trip extends Model
         'country_id' => 'integer',
         'latitude' => 'float',
         'longitude' => 'float',
-        'initialDate' => 'datetime',
-        'endDate' => 'datetime',
+        'initial_date' => 'datetime',
+        'end_date' => 'datetime',
         'shared' => 'boolean',
     ];
 
