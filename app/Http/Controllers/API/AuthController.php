@@ -32,7 +32,7 @@ class AuthController extends Controller
     {
         $user = null;
         if ($status = auth()->check()) {
-            $user = auth()->user();
+            $user = auth()->user()->makeHidden('username');
         }
 
         return response()->json([
