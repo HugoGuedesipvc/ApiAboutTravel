@@ -34,7 +34,7 @@ class LocalController extends ApiBaseController
                 page: $request->get('page', 1)
             );*/
 
-        $locals = $trip->locals();
+        $locals = $trip->locals()->get();
 
         return response()->json($locals);
     }
