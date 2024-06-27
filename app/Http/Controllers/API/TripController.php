@@ -56,7 +56,7 @@ class TripController extends ApiBaseController
             ->update(
                 $trip,
                 $request->label,
-                $request->country_iso2,
+                $this->countryService->findByIso2($request->country_iso2),
                 $request->location,
                 $request->date('initial_date'),
                 $request->date('end_date'),
