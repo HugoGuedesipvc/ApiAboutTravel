@@ -30,7 +30,7 @@ class TripController extends ApiBaseController
                 page: $request->get('page', 1)
             );*/
 
-        $trips = $this->tripService->all();
+        $trips = $this->user->trips()->get();
 
         return response()->json($trips);
     }
