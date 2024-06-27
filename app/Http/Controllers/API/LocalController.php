@@ -27,12 +27,14 @@ class LocalController extends ApiBaseController
 
     public function index(Request $request, Trip $trip)
     {
-        $locals = $trip->locals()
+        /*$locals = $trip->locals()
             ->with(['localFiles', 'localType'])
             ->paginate(
                 $request->get('amount', 20),
                 page: $request->get('page', 1)
-            );
+            );*/
+
+        $locals = $trip->locals();
 
         return response()->json($locals);
     }

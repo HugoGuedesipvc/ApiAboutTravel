@@ -22,14 +22,15 @@ class TripController extends ApiBaseController
 
     public function index(Request $request)
     {
-        $trips = $this->user
+        /*$trips = $this->user
             ->trips()
             //->with(['userSharedTrips', 'ratings',])
             ->paginate(
                 $request->get('amount', 20),
                 page: $request->get('page', 1)
-            );
+            );*/
 
+        $trips = $this->user->trips();
 
         return response()->json($trips);
     }
